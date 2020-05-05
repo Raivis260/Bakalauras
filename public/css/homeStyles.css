@@ -9,6 +9,9 @@ h1 {
   font-weight: 900;
 }
 
+a {
+  text-decoration: none;
+}
 
 .logo {
   margin: 15px 20px 0 0;
