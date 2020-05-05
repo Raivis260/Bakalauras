@@ -4,19 +4,29 @@
   "description": "Auction web app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  
   },
   "author": "Raivydas Česlauskas",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.8",
     "body-parser": "^1.19.0",
-    "ejs": "^3.0.1",
+    "config": "^3.2.5",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",,
     "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.4.1",
     "joi": "^14.3.1",
     "joi-password-complexity": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mongoose": "^5.9.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7"
   }
 }

@@ -1,3 +1,73 @@
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+h1 {
+  font-family: 'Montserrat-Black', sans-serif;
+  font-size: 3rem;
+  line-height: 1.5;
+  font-weight: 900;
+}
+
+
 .logo {
   margin: 15px 20px 0 0;
+}
+
+.container-fluid {
+  padding: 3% 15%;
+}
+
+#title {
+  background-image: url("../images/timer.jpg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 1050px;
+}
+
+
+.navbar {
+  padding: 0 0 5%;
+}
+
+.navbar-brand {
+  font-family: "Ubuntu",sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  font-family: "Montserrat-Light", sans-serif;
+}
+
+.btn-login {
+  margin: 3% 0;
+}
+
+#items {
+  background-color: yellow;
+  text-align: center;
+}
+
+#footer {
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+#footer ul {
+  list-style-type: none;
+}
+#footer a {
+  padding: 0 18px;
+  text-decoration: none;
+}
+.social-icon {
+  margin: 20px 10px;
 }
