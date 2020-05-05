@@ -5,9 +5,7 @@ const bodyParser = require ('body-parser');
 const ejs = require('ejs');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require ('mongoose');
-const loginPage = require('./routes/login');
 const home = require('./routes/home');
-const register = require('./routes/register');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -79,13 +77,9 @@ app.get('*', function(req, res, next) {
 })
 
 // Routes
-//app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
-app.use('/register', register);
-app.use('/login', loginPage);
 app.use('/', home);
 
-//
 
 
 app.listen(PORT, () => {
