@@ -79,7 +79,10 @@ app.get('*', function(req, res, next) {
 
 // Routes
 app.use('/users', require('./routes/users'));
+app.use('/products', require('./routes/products'));
+app.use('/support', require('./routes/support'));
 app.use('/', home);
+
 
 
 

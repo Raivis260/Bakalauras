@@ -33,7 +33,7 @@
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Profile </a>
               <div class="dropdown-menu">
                 <a href="#" class="dropdown-item">List</a>
-                <a href="#" class="dropdown-item">Add item</a>
+                <a href="/products/add/add-product" class="dropdown-item">Add product</a>
                 <a href="#" class="dropdown-item">History</a>
               </div>
             </li>
@@ -48,6 +48,7 @@
           </ul>
         </div>
       </nav>
+      <%- include ("./partials/messages") -%>
       <div class="row">
         <div class="col-4">
           <h1>Get your bid! Time is ticking!</h1>
@@ -61,95 +62,91 @@
 
   <section id="items">
     <div class="container-fluid">
-      <div class="container">
-        <div class="row">
-          <div class="col" style="border:1px solid #333">
-            <ol>
-              <li class="col btn btn-outline-dark"><a class="nav-link" href="#">VILNIUS</a></li>
-              <li class="col btn btn-outline-dark"><a class="nav-link" href="#">VILNIUS</a></li>
-              <li class="col-12 btn btn-outline-dark"><a class="nav-link" href="#">VILNIUS</a></li>
-              <li class="col-12 btn btn-outline-dark"><a class="nav-link" href="#">VILNIUS</a></li>
-              <li class="col-12 btn btn-outline-dark"><a class="nav-link" href="#">VILNIUS</a></li>
-            </ol>
-          </div>
-          <div class="col-9" style="border:1px solid #333">
-            <div class="row">
-              <div class="pricing-column col-lg-4 col-md-6">
-                <div class="card">
-                  <div class="card-header">
-                    <h3>ITEM NAME</h3>
-                  </div>
-                  <div class="card-body">
-                    <h2>FOTO</h2>
-                    <p>CURRENT PRICE</p>
-                    <p>TIME LEFT</p>
-                    <p>CITY</p>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-dark">OPEN</button>
-                  </div>
-                </div>
-              </div>
-              <div class="pricing-column col-lg-4 col-md-6">
-                <div class="card">
-                  <div class="card-header">
-                    <h3>ITEM NAME</h3>
-                  </div>
-                  <div class="card-body">
-                    <h2>FOTO</h2>
-                    <p>CURRENT PRICE</p>
-                    <p>TIME LEFT</p>
-                    <p>CITY</p>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-dark">OPEN</button>
-                  </div>
-                </div>
-              </div>
-              <div class="pricing-column col-lg-4">
-                <div class="card">
-                  <div class="card-header">
-                    <h3>ITEM NAME</h3>
-                  </div>
-                  <div class="card-body">
-                    <h2>FOTO</h2>
-                    <p>CURRENT PRICE</p>
-                    <p>TIME LEFT</p>
-                    <p>CITY</p>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-dark">OPEN</button>
-                  </div>
-                </div>
-              </div>
+      <div class="row">
+        <div class="col">
+          <div class="input-group mb-3">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-outline-dark my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
             </div>
           </div>
-        </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text btn-dark" for="inputGroupSelect01">City</label>
+              </div>
+              <select class="custom-select" id="citySelect" onChange="location = this.value;">
+                <option value ='/?'>All</option>
+                <option value="/?city=Vilnius">Vilnius</option>
+                <option value="/?city=Kaunas">Kaunas</option>
+                <option value="/?city=Alytus">Alytus</option>
+              </select>
+            </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text  btn-dark" for="inputGroupSelect02">Type</label>
+            </div>
+            <form class="" action="/home" method="post">
+              <select class="custom-select" id="inputGroupSelect01">
+                <option selected>All</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </form>
 
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text  btn-dark" for="inputGroupSelect03">Started</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+              <option selected>All</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text  btn-dark" for="inputGroupSelect04">Ending</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+              <option selected>All</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="row">
+            <% for (let i=0; i<items.length; i++) { %>
+            <div class="col-lg-3 col-md-4 m-3 product-grid">
+              <div class="image">
+                <a href="/products/<%=items[i]._id %>">
+                  <img src="<%=items[i].image%>" class="w-100">
+                  <div class="overlay">
+                    <div class="detail">
+                      View details
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <h4 class="text-center"><%=items[i].name %></h4>
+              <h5><%=items[i].price %> €</h5>
+              <p> <%=items[i].startTime%> </p>
+              <p> <%=items[i].city %> </p>
+              <a href="/products/<%=items[i]._id %>" class="btn btn-lg btn-block btn-outline-dark">Open</a>
+            </div>
+            <%  }; %>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <footer class="white-section" id="footer">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-4">
-          <h4>Contacts</h4>
-          <p>Vilnius</p>
-          <p>Telephone: +3705015417</p>
-          <p>raivydas.ceslauskas@stud.vgtu.lt</p>
-        </div>
-        <div class="col-4">
-          <i class="social-icon fab fa-facebook-f"></i>
-          <i class="social-icon fab fa-twitter"></i>
-          <i class="social-icon fab fa-instagram"></i>
-          <i class="social-icon fas fa-envelope"></i>
-          <p>© Copyright 2020 Bidit Raivydas</p>
-        </div>
-        <div class="col-4">
-          <ul>
-            <li><a href="/help" class="btn btn-outline-dark btn-lg btn-block">Help</a></li>
-            <li><a href="/faq" class="btn btn-outline-dark btn-lg btn-block">FAQ</a></li>
-            <li><a href="/about" class="btn btn-outline-dark btn-lg btn-block">About us</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+
+  <%- include ("./partials/footer") -%>
 
 </body>
 

@@ -3,9 +3,8 @@ const path = require('path');
 const router = express.Router();
 const {ensureAuthenticated} = require('../config/auth');
 
-router.get('/', (req, res) => {
-  res.render(path.resolve(__dirname + '/../views/home.ejs'));
-})
+const HomeController = require('../controllers/home');
 
+router.get('/', HomeController.get_home_products_grid);
 
 module.exports = router;

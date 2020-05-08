@@ -1,1 +1,37 @@
-
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">bidit</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav ml-auto">
+          <% if(isAuthenticated) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="#footer">Contacts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/logout">Logout</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Profile </a>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">List</a>
+              <a href="/products/add/add-product" class="dropdown-item">Add item</a>
+              <a href="#" class="dropdown-item">History</a>
+            </div>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="#footer">Contacts</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-dark" href="/users/register">Register</a>
+          </li>
+          <%  } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

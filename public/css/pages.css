@@ -1,0 +1,26 @@
+.container-fluid {
+  padding: 0;
+}
+
+.navbar {
+  padding: 0;
+  margin: 0 0 5%;
+}
+
+.priceInput {
+    font-size: 0.875rem;
+    line-height: 1.14286;
+    -webkit-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+    background-color: #fcfcfc;
+    border-radius: 2.5rem;
+    border: 1px solid rgba(34,34,34,0.32);
+    color: #222;
+    height: 2rem;
+    padding: 0.4375rem 1.33333em;
+    margin-left: -0.25rem;
+}
+
+#review {
+  padding-bottom: 5%;
+}
