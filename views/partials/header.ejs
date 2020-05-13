@@ -9,25 +9,24 @@
         <ul class="navbar-nav ml-auto">
           <% if(isAuthenticated) { %>
           <li class="nav-item">
-            <a class="nav-link" href="#footer">Contacts</a>
+            <a class="nav-link" href="#footer">Kontaktai</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/users/logout">Logout</a>
+            <a class="nav-link" href="/users/logout">Atsijungti</a>
           </li>
           <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Profile </a>
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mano profilis </a>
             <div class="dropdown-menu">
-              <a href="#" class="dropdown-item">List</a>
-              <a href="/products/add/add-product" class="dropdown-item">Add item</a>
-              <a href="#" class="dropdown-item">History</a>
+              <a href="/users/my-list" class="dropdown-item">Mėgstami</a>
+              <a href="/products/add/add-product" class="dropdown-item">Pridėti produktą</a>
             </div>
           </li>
           <% } else { %>
           <li class="nav-item">
-            <a class="nav-link" href="#footer">Contacts</a>
+            <a class="nav-link" href="#footer">Kontaktai</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-dark" href="/users/register">Register</a>
+            <a class="btn btn-dark" href="/users/register">Registruotis</a>
           </li>
           <%  } %>
         </ul>

@@ -29,7 +29,12 @@ const userSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 10
   },
-  isAdmin: Boolean});
+  favouriteList: {
+    type: Array,
+    default: []
+  },
+  isAdmin: Boolean,
+  default: false});
 
 userSchema.methods.generateAuthToken = function() {
 

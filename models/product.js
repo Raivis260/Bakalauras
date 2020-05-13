@@ -55,10 +55,14 @@ const productSchema = new mongoose.Schema({
   comments: {
     type: Array,
     default: []
+  },
+  timeLeft: {
+    type: Date
   }
 });
 
 const Product = mongoose.model('Product', productSchema);
+
 
 
 exports.Product = Product;

@@ -59,13 +59,12 @@ a {
 
 #items {
   text-align: center;
+  background-image: url("/../images/backgroundPages.jpg");
 }
 
 #footer {
-  background-color: #f5f5f5;
+  background-color: #fff;
   text-align: center;
-  padding-top: 3%;
-  padding-bottom: 2%;
 }
 
 #footer ul {
