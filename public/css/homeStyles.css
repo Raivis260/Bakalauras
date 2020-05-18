@@ -17,17 +17,24 @@ a {
   margin: 15px 20px 0 0;
 }
 
-.container-fluid {
-  padding: 3% 15%;
+#title {
+  background-image: url('../images/repetitive.jpg');
+  background-size: cover;
+  text-align: center;
+  background-color: #000;
+  opacity: 0.8;
 }
 
-#title {
-  background-image: url("../images/timer.jpg");
-  background-size: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 1050px;
+
+#title h1 {
+  color: #ffffff;
+  background-color: #000000;
+  opacity: 0.9;
+  margin-top: 3%;
+}
+
+.container-fluid {
+  padding: 0;
 }
 
 .description {
@@ -35,7 +42,8 @@ a {
 }
 
 .navbar {
-  padding: 0 0 5%;
+  background-image: url("/../images/backgroundPages.jpg");
+  padding: 0;
 }
 
 .navbar-brand {
@@ -59,12 +67,16 @@ a {
 
 #items {
   text-align: center;
+  padding-top: 3%;
+  padding-bottom: 3%;
   background-image: url("/../images/backgroundPages.jpg");
 }
 
 #footer {
   background-color: #fff;
   text-align: center;
+  padding-top: 3%;
+
 }
 
 #footer ul {

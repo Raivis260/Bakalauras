@@ -13,21 +13,21 @@
 
 <body>
   <%- include ("./partials/header") -%>
-  <div class="container">
 
-    <h1>Pridėti produktą</h1>
-    <form class="mt-3" action="/products/add/add-product" method="POST" enctype="multipart/form-data">
+  <div class="container">
+    <h1>Redaguoti produktą</h1>
+    <form class="mt-3" action="/products/edit/<%=product._id%>" method="POST" enctype="multipart/form-data">
       <div class="form-group row">
         <label for="inputProductName" class="col-sm-2 col-form-label">Pavadinimas</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputProductName" name="inputProductName">
+          <input type="text" class="form-control" id="inputProductName" name="inputProductName" value="<%=product.name%>">
         </div>
       </div>
       <div class="form-group row">
         <label for="inputCity" class="col-sm-2 col-form-label">Miestas</label>
         <div class="col-sm-10">
           <select class="custom-select" name="citySelect">
-            <option value="/" selected>Pasirinkite miestą...</option>
+            <option value="<%=product.city%>" selected><%=product.city%></option>
             <% for(let i=0; i<cities.length; i++) { %>
               <option value='<%=cities[i].city%>'> <%= cities[i].city %> </option>
             <% } %>
@@ -38,7 +38,7 @@
         <label for="inputCategory" class="col-sm-2 col-form-label">Kategorija</label>
         <div class="col-sm-10">
           <select class="custom-select" name="categorySelect">
-            <option value='' selected>Pasirinkite kategoriją...</option>
+            <option value='<%=product.category%>' selected><%=product.category%></option>
             <% for(let i=0; i<categories.length; i++) { %>
               <option value='<%=categories[i].name%>'> <%= categories[i].name %> </option>
             <% } %>
@@ -49,6 +49,7 @@
         <label for="inputCity" class="col-sm-2 col-form-label">Būklė</label>
         <div class="col-sm-10">
           <select class="custom-select" id="conditionSelect">
+            <option value="<%= product.condition %>" selected><%=product.condition%></option>
             <% for(let i=0; i<conditions.length; i++) { %>
               <option value='/?condition=<%=conditions[i].name%>'> <%= conditions[i].name %> </option>
             <% } %>
@@ -58,26 +59,17 @@
       <div class="form-group row">
         <label for="inputDescription" class="col-sm-2 col-form-label">Aprašymas</label>
         <div class="col-sm-10">
-          <textarea name="productDescription" rows="8" cols="80" placeholder="Trumpai pakomentuokite apie savo produktą."></textarea>
+          <textarea name="productDescription" rows="8" cols="80" placeholder="Trumpai pakomentuokite apie savo produktą."><%=product.description%></textarea>
         </div>
       </div>
       <div class="form-group row">
         <label for="inputProductPrice" class="col-sm-2 col-form-label">Kaina</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" name="inputProductPrice" placeholder="Įveskite savo pradinę kainą.">
+          <input type="number" class="form-control" name="inputProductPrice" placeholder="Įveskite savo pradinę kainą." value="<%=product.price%>">
         </div>
       </div>
       <div class="form-group row">
-        <label for="inputProductPrice" class="col-sm-2 col-form-label">Nuotraukos</label>
-        <div class="col-sm-10">
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" name="customFile">
-            <label class="custom-file-label" for="customFile">Pasirinkti failą</label>
-          </div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <button class="btn btn-outline-dark btn-block" type="submit" name="productSubmit" value="Upload">Skelbti</button>
+        <button class="btn btn-outline-warning btn-block" type="submit" name="productSubmit" >Redaguoti</button>
       </div>
     </form>
   </div>

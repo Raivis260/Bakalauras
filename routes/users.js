@@ -28,4 +28,7 @@ router.get('/logout', UsersController.user_logout);
 router.get ('/my-list', ensureAuthenticated, UsersController.user_get_my_list);
 router.post('/my-list/:id', ensureAuthenticated, UsersController.user_delete_from_my_list);
 
+// My Procuts
+router.get('/my-items', ensureAuthenticated, UsersController.user_get_my_products);
+
 module.exports = router;

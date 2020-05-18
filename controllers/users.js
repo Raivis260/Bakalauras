@@ -85,6 +85,8 @@ exports.user_logout = (req,res) => {
   res.redirect('/users/login');
 };
 
+
+// Mėgstamiausi
 exports.user_get_my_list = async (req, res) => {
   try {
     const user = await User.findOne({email: req.user.email});
@@ -100,26 +102,28 @@ exports.user_delete_from_my_list = async (req, res) => {
     const user = await User.findOne({email: req.user.email});
     const product = await Product.findById(req.params.id);
 
-    user.update({favouriteList: {$pull: {_id: product._id} }});
-
+    await user.updateOne({$pull: {favouriteList: {_id: product._id}}});
     await user.save();
 
     req.flash('success_msg', 'Produktas buvo sėkmingai pašalintas iš sąrašo');
     res.redirect('/users/my-list');
+
   }
   catch (err) {
     console.log(err.message);
   }
 }
 
-const array = [2, 5, 9];
+// Įkelti
 
-console.log(array);
+exports.user_get_my_products = async(req, res) => {
+  try {
+    const user = await User.findOne({email: req.user.email});
+    let userProducts = await Product.find({user: user._id});
 
-const index = array.indexOf(5);
-if (index > -1) {
-  array.splice(index, 1);
+    res.render('myProducts', {user: user, userProducts: userProducts});
+  }
+  catch(err) {
+    console.log(err.message);
+  }
 }
-
-// array = [2, 9]
-console.log(array);

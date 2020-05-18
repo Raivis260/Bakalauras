@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+
 const router = express.Router();
 const {ensureAuthenticated} = require('../config/auth');
 const {Product} = require('../models/product');
@@ -33,6 +34,7 @@ const upload = multer({
 });
 
 
+
 const ProductsController = require('../controllers/products');
 
 router.get('/:id', ProductsController.products_get);
@@ -49,5 +51,10 @@ router.post('/add/add-product', ensureAuthenticated, upload.single('customFile')
 // Products add to list
 router.post('/:id/add-to-list', ensureAuthenticated, ProductsController.products_add_to_list);
 
+// Product edit
+router.get('/edit/:id', ensureAuthenticated, ProductsController.get_product_edit);
+router.post('/edit/:id', ensureAuthenticated, ProductsController.post_product_edit);
+
+router.post('/my-items/:id', ensureAuthenticated, ProductsController.delete_from_my_items);
 
 module.exports = router;

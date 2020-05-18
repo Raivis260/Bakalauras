@@ -33,8 +33,11 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: []
   },
-  isAdmin: Boolean,
-  default: false});
+  isAdmin: {
+    type: Boolean,
+    default: false
+  }
+  });
 
 userSchema.methods.generateAuthToken = function() {
 

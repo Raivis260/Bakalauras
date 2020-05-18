@@ -1,5 +1,5 @@
 body {
-  background-image: url("/../images/backgroundPages.jpg");
+
 }
 
 
@@ -9,7 +9,6 @@ body {
 
 .navbar {
   padding: 0;
-  margin: 0 0 5%;
 }
 
 .priceInput {
@@ -30,12 +29,37 @@ body {
   padding-top: 3%;
   padding-bottom: 2%;
   background-color: #fff;
+  background-image: url("/../images/backgroundPages.jpg");
 }
 
 #review {
   padding-bottom: 5%;
 }
 
-.comment {
-  border: 1px solid black;
+.comment-row {
+  background-color: #eeeeee;
+}
+
+.commentUser {
+  background-color: #393e46;
+  color: #fff;
+  padding: 1% 1% 0;
+}
+
+.commentText {
+  padding: 1% 1% 1%;
+
+}
+
+#product {
+  padding-top: 3%;
+}
+
+.time {
+  margin-top: 10%;
+}
+
+.help-text {
+  padding-top: 5%;
+  padding-bottom: 5%;
 }

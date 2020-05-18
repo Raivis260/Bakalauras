@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Art', 'Books', 'Cars/Motorcycles', 'Coins', 'Computers/Games', 'Gemstones', 'Fashion', 'Decorations', 'Jewellery', 'Sports', 'Toys', 'Weapony']
+    enum: ['Menas', 'Kyngos', 'Automobiliai/motociklai', 'Monetos', 'Kompiuteriai/žaidimai', 'Brangakmeniai', 'Mada', 'Dekoracijos', 'Papuošalai', 'Sportas', 'Žaislai', 'Ginklai']
   },
   city: {
     type: String,
@@ -27,8 +27,8 @@ const productSchema = new mongoose.Schema({
   },
   condition: {
     type: String,
-    enum: ['New', 'Used', 'Damaged'],
-    default: 'Used',
+    enum: ['Nauja', 'Naudota', 'Pažeista'],
+    default: 'Naudota',
     required: true
   },
   description: {
@@ -58,6 +58,10 @@ const productSchema = new mongoose.Schema({
   },
   timeLeft: {
     type: Date
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 

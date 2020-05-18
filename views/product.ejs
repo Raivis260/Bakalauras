@@ -48,25 +48,6 @@
             </div>
           </div>
           <div class="col-4">
-            <div class="time">
-              <table class="countdownContainer">
-                <tr class="info">
-                  <td colspan="4">Iki aukciono pabaigos liko:</td>
-                </tr>
-                <tr class="info">
-                  <td name="days">7</td>
-                  <td name="hours">4</td>
-                  <td name="minutes">12</td>
-                  <td name="seconds">22</td>
-                </tr>
-                <tr>
-                  <td>Dienos</td>
-                  <td>Valandos</td>
-                  <td>Minutės</td>
-                  <td>Sekundės</td>
-                </tr>
-              </table>
-            </div>
             <form action="/products/<%=product._id %>/bid" method="post">
               <div class="product_controls">
                 <form class="" action="/products/<%=product._id %>/quick-bid" method="post">
@@ -91,6 +72,25 @@
             <form class="" action="/products/<%=product._id%>/add-to-list" method="post">
               <button class="btn btn-outline-dark my-2 my-sm-0 btn-block mt-8" type="submit" name="favouriteButton">Pridėti prie mėgstamų sąrašo</button>
             </form>
+            <div class="time">
+              <table class="countdownContainer">
+                <tr class="info">
+                  <td colspan="4">Iki aukciono pabaigos liko:</td>
+                </tr>
+                <tr class="info">
+                  <td name="days">7</td>
+                  <td name="hours">4</td>
+                  <td name="minutes">12</td>
+                  <td name="seconds">22</td>
+                </tr>
+                <tr>
+                  <td>Dienos</td>
+                  <td>Valandos</td>
+                  <td>Minutės</td>
+                  <td>Sekundės</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -107,11 +107,15 @@
         <button class="btn btn-outline-dark btn-block" type="submit" name="reviewSubmit">Skelbti</button>
         <% } %>
         <% for(let i=0; i<product.comments.length; i++) { %>
-        <div class="comment-row mt-5">
-          <h4 name="commentUser">Naudotojas</h4>
-          <p class="comment"><%=product.comments[i].message %></p>
-        </div>
-        <% } %>
+            <div class="comment-row mt-3">
+              <div class="commentUser">
+                <p>Naudotojas</p>
+              </div>
+              <div class="commentText">
+                <p><%=product.comments[i].message %></p>
+              </div>
+            </div>
+            <% } %>
       </div>
     </form>
   </section>
@@ -120,6 +124,8 @@
   </div>
 
   <%- include ("./partials/footer") -%>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="../jquery/timer.js"></script>
 </body>
 
 
