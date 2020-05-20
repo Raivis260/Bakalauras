@@ -127,3 +127,62 @@ exports.user_get_my_products = async(req, res) => {
     console.log(err.message);
   }
 }
+
+// Profile edit
+exports.get_profile_edit = async(req, res) => {
+  try {
+    const user = await User.findOne({email: req.user.email});
+    res.render('profileEdit', {user: user});
+  }
+  catch(err) {
+    console.log(err.message);
+  }
+}
+
+exports.get_password_change = async(req, res) => {
+  try {
+    const user = await User.findOne({email:req.user.email});
+    res.render('passwordChange', {user: user});
+  }
+  catch(err) {
+    console.log(err.message);
+  }
+}
+
+exports.post_password_change = async(req, res) => {
+  try {
+
+    let errors = [];
+
+    if (!req.body.userPassword || !req.body.confirmPassword) {
+      errors.push({msg: 'Prašome užpildyti visus laukus'});
+    }
+    if (req.body.userPassword !== req.body.confirmPassword) {
+      errors.push({msg: 'Slaptažodžiai nesutampa'});
+    }
+
+    if (req.body.userPassword.length < 6) {
+      errors.push({msg: 'Slaptažodis turėtų būti bent 6 ženklų ilgio'});
+    }
+
+    if (errors.length > 0) {
+      res.render('passwordChange', {
+        errors
+      });
+    } else {
+      // Validation Passed
+      const salt = await bcrypt.genSalt(10);
+      let password = await bcrypt.hash(req.body.userPassword, salt);
+
+      let user = await User.updateOne({email: req.user.email},{
+        password: password
+      });
+
+      req.flash('success_msg', 'Slaptažodis atnaujintas');
+      res.redirect('/users/edit');
+  }
+}
+  catch(err) {
+    console.log(err.message);
+  }
+}

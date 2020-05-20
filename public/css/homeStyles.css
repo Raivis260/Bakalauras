@@ -23,6 +23,7 @@ a {
   text-align: center;
   background-color: #000;
   opacity: 0.8;
+  padding-bottom: 3%;
 }
 
 
@@ -127,20 +128,10 @@ a {
 
 /* Product details */
 
-.countdownContainer {
-  text-align: center;
-  background: #ddd;
-  border: 1px solid #999;
-  padding: 10px;
-  box-shadow: 0 0 5px 3px #ccc;
-  margin-bottom: 30px;
-}
-
 .info {
   font-size: 20px;
 }
 
 .price {
   font-size: 30px;
-
 }

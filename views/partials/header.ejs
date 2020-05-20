@@ -1,7 +1,6 @@
 <div class="container-fluid">
   <nav class="navbar navbar-expand-sm navbar-light">
-    <div class="container">
-      <a class="navbar-brand" href="/">bidit</a>
+      <a class="navbar-brand ml-3" href="/">bidit</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -19,7 +18,8 @@
             <div class="dropdown-menu">
               <a href="/users/my-list" class="dropdown-item">Mėgstami</a>
               <a href="/products/add/add-product" class="dropdown-item">Pridėti produktą</a>
-                <a href="/users/my-items" class="dropdown-item">Mano produktai</a>
+              <a href="/users/my-items" class="dropdown-item">Mano produktai</a>
+              <a href="/users/edit" class="dropdown-item">Redaguoti profilį</a>
             </div>
           </li>
           <% } else { %>
@@ -27,11 +27,10 @@
             <a class="nav-link" href="#footer">Kontaktai</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-dark" href="/users/register">Registruotis</a>
+            <a href="/users/login" class="btn btn-dark btn-lg btn-login">Prisijungti!</a>
           </li>
           <%  } %>
         </ul>
       </div>
-    </div>
   </nav>
 </div>

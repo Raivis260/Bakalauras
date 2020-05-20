@@ -31,4 +31,11 @@ router.post('/my-list/:id', ensureAuthenticated, UsersController.user_delete_fro
 // My Procuts
 router.get('/my-items', ensureAuthenticated, UsersController.user_get_my_products);
 
+
+//Profile edit
+
+router.get('/edit', ensureAuthenticated, UsersController.get_profile_edit);
+router.get('/edit/pswChange', ensureAuthenticated, UsersController.get_password_change);
+
+router.post('/edit/pswChange', ensureAuthenticated, UsersController.post_password_change);
 module.exports = router;

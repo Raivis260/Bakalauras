@@ -51,16 +51,45 @@ exports.products_post_price = async (req, res) => {
 }
 
 //TODO
-exports.products_post_quick_bid = async (req, res) => {
+exports.products_post_quick_bid_first = async (req, res) => {
   try {
-    let product = await Product.findById(req.params.id);
-    let price = this.value;
-
-    product.price = price;
-    await product.save();
+    let product = await Product.findOne({_id: req.params.id});
+    await Product.updateOne({_id: req.params.id}, {$set: {
+      price: req.body.Btn1Price
+    }});
     req.flash('success_msg', 'Jūsų kaina sėkmingai pasiūlyta! Jūs esate aukciono lyderis!');
     await res.redirect(`/products/${product._id}`);
-  } catch (err) {
+  }
+
+  catch (err) {
+    console.log(err.message);
+  }
+}
+exports.products_post_quick_bid_second = async (req, res) => {
+  try {
+    let product = await Product.findOne({_id: req.params.id});
+    await Product.updateOne({_id: req.params.id}, {$set: {
+      price: req.body.Btn2Price
+    }});
+    req.flash('success_msg', 'Jūsų kaina sėkmingai pasiūlyta! Jūs esate aukciono lyderis!');
+    await res.redirect(`/products/${product._id}`);
+  }
+
+  catch (err) {
+    console.log(err.message);
+  }
+}
+exports.products_post_quick_bid_third = async (req, res) => {
+  try {
+    let product = await Product.findOne({_id: req.params.id});
+    await Product.updateOne({_id: req.params.id}, {$set: {
+      price: req.body.Btn3Price
+    }});
+    req.flash('success_msg', 'Jūsų kaina sėkmingai pasiūlyta! Jūs esate aukciono lyderis!');
+    await res.redirect(`/products/${product._id}`);
+  }
+
+  catch (err) {
     console.log(err.message);
   }
 }
@@ -147,16 +176,24 @@ exports.products_post_product = async (req, res, next) => {
   let width = 400;
   let height = 300;
 
-  sharp(req.file.path)
-    .resize(width, height)
-    .toFile('uploads/changed_' + req.file.originalname, function(err) {
-      if(!err) {
-        console.log('SHARP worked!');
-      }
-      else {
-        console.log(err);
-      }
-    })
+  let images = [];
+
+  for(let i=0; i< req.files.length; i++) {
+
+     sharp(req.files[i].path)
+       .resize(width, height)
+       .png()
+       .toFile('uploads/changed_' + req.files[i].originalname,  function(err) {
+         if(!err) {
+           console.log('SHARP worked!');
+           console.log(`uploads/changed_${req.files[i].originalname}`);
+         }
+         else {
+           console.log(err);
+         }
+       })
+    await images.push(`uploads/changed_${req.files[i].originalname}`);
+  }
 
   const user = await User.findOne({email: req.user.email});
 
@@ -167,7 +204,7 @@ exports.products_post_product = async (req, res, next) => {
     condition: req.body.conditionSelect,
     description: req.body.productDescription,
     price: req.body.inputProductPrice,
-    image: 'uploads/changed_' + req.file.originalname,
+    image: images,
     endTime: '2020-05-20',
     timeLeft: '2020-06-20',
     user: user
@@ -194,7 +231,6 @@ exports.post_product_edit = async(req, res) => {
   try {
 
     let {name, city, category, condition, description, price} = req.body;
-    console.log(req.body);
 
     const product = await Product.updateOne({_id: req.params.id}, {$set: {
       name: req.body.inputProductName,
@@ -204,8 +240,8 @@ exports.post_product_edit = async(req, res) => {
       description: req.body.productDescription,
       price: req.body.inputProductPrice
     }});
-
   }
+
   catch(err) {
     console.log(err.message);
   }
@@ -226,35 +262,4 @@ exports.delete_from_my_items = async(req, res) => {
   }
   req.flash('success_msg', 'Product successfully deleted from list.');
   res.redirect('/users/my-items');
-}
-
-
-
-function countdown(startDate, endDate) {
-
-
-  let remTime = endDate - startDate;
-
-  let s = Math.floor(remTime / 1000);
-  let m = Math.floor(s / 60);
-  let h = Math.floor(m / 60);
-  let d = Math.floor(h / 24);
-
-  h %= 24;
-  m %= 60;
-  s %= 60;
-
-  if (h < 10) {
-    h = "0" + h;
-  }
-
-  if (m < 10) {
-    m = "0" + m;
-  }
-
-  if (s < 10) {
-    s = "0" + s;
-  }
-
-  return remTime;
 }

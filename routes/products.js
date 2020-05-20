@@ -42,11 +42,13 @@ router.get('/:id', ProductsController.products_get);
 // Products comment and price
 router.post('/:id', ensureAuthenticated, ProductsController.products_post_comment);
 router.post('/:id/bid', ensureAuthenticated, ProductsController.products_post_price);
-router.post('/:id/quick-bid', ensureAuthenticated, ProductsController.products_post_quick_bid);
-
+//Quick Bid
+router.post('/:id/quick-bid/first', ensureAuthenticated, ProductsController.products_post_quick_bid_first);
+router.post('/:id/quick-bid/second', ensureAuthenticated, ProductsController.products_post_quick_bid_second);
+router.post('/:id/quick-bid/third', ensureAuthenticated, ProductsController.products_post_quick_bid_third);
 // Add Product from
 router.get('/add/add-product', ensureAuthenticated, ProductsController.products_get_add_form);
-router.post('/add/add-product', ensureAuthenticated, upload.single('customFile'), ProductsController.products_post_product);
+router.post('/add/add-product', ensureAuthenticated, upload.array('customFile', 12), ProductsController.products_post_product);
 
 // Products add to list
 router.post('/:id/add-to-list', ensureAuthenticated, ProductsController.products_add_to_list);

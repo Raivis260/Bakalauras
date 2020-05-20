@@ -32,7 +32,7 @@
         <h5><%=user.favouriteList[i].price %> €</h5>
         <p> <%=user.favouriteList[i].startTime%> </p>
         <p> <%=user.favouriteList[i].city %> </p>
-        <a href="/products/<%=user.favouriteList[i]._id %>" class="btn btn-lg btn-block btn-outline-dark">Atidaryti</a>
+        <a href="/products/<%=user.favouriteList[i]._id %>" class="btn btn-lg btn-block custom-button">Atidaryti</a>
         <form action="/users/my-list/<%=user.favouriteList[i]._id%>" method="post">
           <button class="btn btn-danger btn-block mt-2" type="submit" name="deleteButton">Ištrinti</button>
         </form>

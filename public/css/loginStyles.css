@@ -5,7 +5,7 @@ html
 }
 
 body {
-  background-image: url("/../images/registerBackground.jpg");
+  /* background-image: url("/../images/registerBackground.jpg"); */
   background-color: rgba(255,255,255,0.2);
   background-blend-mode: lighten;
   background-size: cover;

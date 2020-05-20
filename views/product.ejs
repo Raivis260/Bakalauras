@@ -17,7 +17,7 @@
       <div class="container">
         <%- include ("./partials/messages") -%>
         <div class="row">
-          <div class="col-8">
+          <div class="col-lg-8 col-md-6 col-sm-12">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval=false>
               <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -47,49 +47,61 @@
               <p class="description"><%=product.description %> </p>
             </div>
           </div>
-          <div class="col-4">
-            <form action="/products/<%=product._id %>/bid" method="post">
-              <div class="product_controls">
-                <form class="" action="/products/<%=product._id %>/quick-bid" method="post">
-                  <div class="quick-bid">
-                    <h5>Greitas siūlymas</h5>
-                    <button name="Btn1Rise" class="btn btn-outline-dark my-2 btn-lg" type="submit" value="<%=product.price + 50%>">€<%=product.price + 50%></button>
-                    <button name="Btn2Rise" class="btn btn-outline-dark my-2 btn-lg" type="submit" value="<%=product.price + 100%>">€<%=product.price + 100%></button>
-                    <button name="Btn3Rise" class="btn btn-outline-dark my-2 btn-lg" type="submit" value="<%=product.price + 200%>">€<%=product.price + 200%></button>
-                  </div>
-                </form>
-                <div class="price p-2">
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="product_controls">
+              <div class="productCity">
+                <span><i class="fas fa-map-marker-alt"></i><%= product.city %></span>
+              </div>
+              <div class="quick-bid">
+                <h5>Greitas siūlymas</h5>
+              <form class="quick-bid-form" action="/products/<%=product._id %>/quick-bid/first" method="post">
+                  <input id="Btn1Price" name="Btn1Price" type="hidden" />
+                  <button id="Btn1Rise" class="btn custom-button my-2 btn-lg" type="submit" value="<%=product.price + 50%>"><%=product.price + 50 %></button>
+              </form>
+              <form class="quick-bid-form" action="/products/<%=product._id %>/quick-bid/second" method="post">
+                <input id="Btn2Price" name="Btn2Price" type="hidden" />
+                <button id="Btn2Rise" class="btn custom-button my-2 btn-lg" type="submit" value="<%=product.price + 100%>"><%=product.price + 100 %></button>
+              </form>
+              <form class="quick-bid-form" action="/products/<%=product._id %>/quick-bid/third" method="post">
+                <input id="Btn3Price" name="Btn3Price" type="hidden" />
+                <button id="Btn3Rise" class="btn custom-button my-2 btn-lg" type="submit" value="<%=product.price + 200%>"><%=product.price + 200 %></button>
+              </form>
+              </div>
+              <form class="" action="/products/<%=product._id %>/bid" method="post">
+                <div class="price p-2 mt-3">
                   <h4>Dabartinė kaina: €<price:><%=product.price %></price:>
                   </h4>
                 </div>
                 <div class="price-input">
-                  <input name="priceInput" class="priceInput" type="number" placeholder="Siūlykite savo kainą" aria-label="Bid">
-                  <button class="btn btn-outline-dark my-3 btn-lg btn-block " type="submit">Siūlyti</button>
+                  <input name="priceInput" class="priceInput btn-block" type="number" placeholder="Siūlykite savo kainą" aria-label="Bid">
+                  <button class="btn custom-button my-3 btn-lg btn-block " type="submit">Siūlyti</button>
                 </div>
-                <span><%= product.city %></span>
-              </div>
+            </div>
             </form>
             <form class="" action="/products/<%=product._id%>/add-to-list" method="post">
-              <button class="btn btn-outline-dark my-2 my-sm-0 btn-block mt-8" type="submit" name="favouriteButton">Pridėti prie mėgstamų sąrašo</button>
+              <button class="custom-button btn my-2 my-sm-0 btn-block mt-8" type="submit" name="favouriteButton">Pridėti prie mėgstamų sąrašo</button>
             </form>
-            <div class="time">
-              <table class="countdownContainer">
-                <tr class="info">
-                  <td colspan="4">Iki aukciono pabaigos liko:</td>
-                </tr>
-                <tr class="info">
-                  <td name="days">7</td>
-                  <td name="hours">4</td>
-                  <td name="minutes">12</td>
-                  <td name="seconds">22</td>
-                </tr>
-                <tr>
-                  <td>Dienos</td>
-                  <td>Valandos</td>
-                  <td>Minutės</td>
-                  <td>Sekundės</td>
-                </tr>
-              </table>
+            <div id="getting-started"></div>
+            <div class="mt-5">
+              <div class="card mt-3">
+                <div class="card-header text-center bg-dark text-light">
+                  <h3>Likęs laikas</h3>
+                </div>
+                <table class="table table-striped mb-0">
+                  <tr class="p-0">
+                    <td class="p-0">Dienos</td>
+                    <td class="p-0">Valandos</td>
+                    <td class="p-0">Minutės</td>
+                    <td class="p-0">Sekundės</td>
+                  </tr>
+                  <tr class="p-0">
+                    <td id="day" class="display-4 bg-dark text-white p-0"></td>
+                    <td id="hours" class="display-4 bg-dark text-white  p-0"></td>
+                    <td id="minutes" class="display-4 bg-dark text-white  p-0"></td>
+                    <td id="seconds" class="display-4 bg-dark text-white  p-0"></td>
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -97,25 +109,25 @@
     </div>
   </section>
 
-  <section id="review">
+  <section id="review" class="mt-5">
 
     <form action="/products/<%=product._id %>" method="post">
       <div class="container">
         <h2>Komentarai</h2>
         <% if(isAuthenticated) { %>
         <textarea class="w-100" type="text" name="commentText"></textarea>
-        <button class="btn btn-outline-dark btn-block" type="submit" name="reviewSubmit">Skelbti</button>
+        <button class="btn custom-button btn-block" type="submit" name="reviewSubmit">Skelbti</button>
         <% } %>
         <% for(let i=0; i<product.comments.length; i++) { %>
-            <div class="comment-row mt-3">
-              <div class="commentUser">
-                <p>Naudotojas</p>
-              </div>
-              <div class="commentText">
-                <p><%=product.comments[i].message %></p>
-              </div>
-            </div>
-            <% } %>
+        <div class="comment-row mt-3">
+          <div class="commentUser">
+            <p>Naudotojas</p>
+          </div>
+          <div class="commentText">
+            <p><%=product.comments[i].message %></p>
+          </div>
+        </div>
+        <% } %>
       </div>
     </form>
   </section>
@@ -125,7 +137,8 @@
 
   <%- include ("./partials/footer") -%>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="../jquery/timer.js"></script>
+  <script type="text/javascript" src="../jquery/quickBid.js"></script>
+
 </body>
 
 

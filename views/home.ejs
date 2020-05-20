@@ -13,9 +13,8 @@
 
 <body>
   <div class="container-fluid">
-      <nav class="navbar navbar-expand-sm navbar-light">
-        <div class="container">
-        <a class="navbar-brand" href="/">bidit</a>
+    <nav class="navbar navbar-expand-sm navbar-light">
+        <a class="navbar-brand ml-3" href="/">bidit</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,6 +33,7 @@
                 <a href="/users/my-list" class="dropdown-item">Mėgstamiausi</a>
                 <a href="/products/add/add-product" class="dropdown-item">Pridėti produktą</a>
                 <a href="/users/my-items" class="dropdown-item">Mano produktai</a>
+                <a href="/users/edit" class="dropdown-item">Redaguoti profilį</a>
               </div>
             </li>
             <% } else { %>
@@ -41,13 +41,12 @@
               <a class="nav-link" href="#footer">Kontaktai</a>
             </li>
             <li class="nav-item">
-              <a class="btn btn-dark" href="/users/register">Registruotis</a>
+              <a href="/users/login" class="btn btn-dark btn-lg btn-login">Prisijungti!</a>
             </li>
             <%  } %>
           </ul>
         </div>
-      </nav>
-    </div>
+    </nav>
   </div>
 
 
@@ -55,9 +54,6 @@
     <div class="row">
       <div class="col-12">
         <h1>Siūlyk! Laikas tiksi!</h1>
-        <% if(!isAuthenticated) { %>
-        <a href="/users/login" class="btn btn-dark btn-lg btn-login">Prisijungti!</a>
-        <% } %>
       </div>
     </div>
     <div class="container">
@@ -68,85 +64,97 @@
   <section id="items" style="word-wrap: break-word;">
     <div class="container-fluid">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12">
-            <form  action="/" method="post">
-              <div class="input-group mb-3">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="term">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-dark my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                </div>
+        <div id="getting-started"></div>
+        <div class="mb-3">
+          <div class="card mt-3">
+            <div class="card-header text-center bg-dark text-light">
+              <h3>Likęs laikas</h3>
+            </div>
+              <table class="table table-striped mb-0">
+                <tr class="p-0">
+                  <td class="p-0">Dienos</td>
+                  <td class="p-0">Valandos</td>
+                  <td class="p-0">Minutės</td>
+                  <td class="p-0">Sekundės</td>
+                </tr>
+                <tr class="p-0">
+                  <td id="day" class="display-4 bg-dark text-white p-0"></td>
+                  <td id="hours" class="display-4 bg-dark text-white  p-0"></td>
+                  <td id="minutes" class="display-4 bg-dark text-white  p-0"></td>
+                  <td id="seconds" class="display-4 bg-dark text-white  p-0"></td>
+                </tr>
+              </table>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text btn-dark" for="inputGroupSelect01">Miestas</label>
               </div>
-            </form>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text btn-dark" for="inputGroupSelect01">Miestas</label>
-            </div>
-            <select class="custom-select" id="citySelect" onChange="location = this.value;">
-              <option value="/">Visi</option>
-              <% for(let i=0; i<cities.length; i++) { %>
+              <select class="custom-select" id="citySelect" onChange="location = this.value;">
+                <option value="/">Visi</option>
+                <% for(let i=0; i<cities.length; i++) { %>
                 <option value='/?city=<%=cities[i].city%>'> <%= cities[i].city %> </option>
-              <% } %>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text btn-dark " for="inputGroupSelect02">Būklė</label>
+                <% } %>
+              </select>
             </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text btn-dark " for="inputGroupSelect02">Būklė</label>
+              </div>
               <select class="custom-select" id="conditionSelect" onChange="location = this.value;">
                 <option selected>Visi</option>
                 <% for(let i=0; i<conditions.length; i++) { %>
-                  <option value='/?condition=<%=conditions[i].name%>'> <%= conditions[i].name %> </option>
+                <option value='/?condition=<%=conditions[i].name%>'> <%= conditions[i].name %> </option>
                 <% } %>
               </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text btn-dark " for="inputGroupSelect02">Kategorija</label>
             </div>
-              <select class="custom-select" id="typeSelect" onChange="location = this.value;" >
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text btn-dark " for="inputGroupSelect02">Kategorija</label>
+              </div>
+              <select class="custom-select" id="typeSelect" onChange="location = this.value;">
                 <option selected>Visos</option>
                 <% for(let i=0; i<categories.length; i++) { %>
-                  <option value='/?category=<%=categories[i].name%>'> <%= categories[i].name %> </option>
+                <option value='/?category=<%=categories[i].name%>'> <%= categories[i].name %> </option>
                 <% } %>
               </select>
-          </div>
-        </div>
-      </div>
-          <div class="container">
-            <h2>Aukcionų sąrašas</h2>
-            <div class="row">
-              <% for (let i=0; i<products.length; i++) { %>
-              <div class="col-lg-4 col-md-6 col-sm-12 product-grid">
-                <div class="image">
-                  <a href="/products/<%=products[i]._id %>">
-                    <img src="../<%=products[i].image[0] %>" class="w-100">
-                    <div class="overlay">
-                      <div class="detail">
-                        View details
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <h4 class="text-center"><%=products[i].name %></h4>
-                <h5><%=products[i].price %> €</h5>
-                <p> <%=products[i].timeLeft%> </p>
-                <p> <%=products[i].city %> </p>
-                <a href="/products/<%=products[i]._id %>" class="btn btn-lg btn-block btn-outline-dark">Atidaryti</a>
-                
-              </div>
-              <%  }; %>
             </div>
           </div>
         </div>
       </div>
+      <div class="container">
+        <h2>Aktyvūs aukciono produktai</h2>
+        <div class="row">
+          <% for (let i=0; i<products.length; i++) { %>
+          <div class="col-lg-4 col-md-6 col-sm-12 product-grid">
+            <div class="image">
+              <a href="/products/<%=products[i]._id %>">
+                <img src="../<%=products[i].image[0] %>" class="w-100">
+                <div class="overlay">
+                  <div class="detail">
+                    View details
+                  </div>
+                </div>
+              </a>
+            </div>
+            <h4 class="text-center"><%=products[i].name %></h4>
+            <h5><%=products[i].price %> €</h5>
+            <p> <%=products[i].timeLeft%> </p>
+            <p> <%=products[i].city %> </p>
+            <a href="/products/<%=products[i]._id %>" class="btn btn-lg btn-block btn-outline-dark">Atidaryti</a>
+
+          </div>
+          <%  }; %>
+        </div>
+      </div>
+    </div>
+    </div>
     </div>
   </section>
 

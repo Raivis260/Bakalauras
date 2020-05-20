@@ -1,5 +1,5 @@
-body {
-
+h1 {
+  margin-top: 3%;
 }
 
 
@@ -12,7 +12,7 @@ body {
 }
 
 .priceInput {
-    font-size: 0.875rem;
+    font-size: 1.5rem;
     line-height: 1.14286;
     -webkit-transition: all 0.15s ease-in-out;
     transition: all 0.15s ease-in-out;
@@ -20,7 +20,7 @@ body {
     border-radius: 2.5rem;
     border: 1px solid rgba(34,34,34,0.32);
     color: #222;
-    height: 2rem;
+    height: 4rem;
     padding: 0.4375rem 1.33333em;
     margin-left: -0.25rem;
 }
@@ -55,11 +55,40 @@ body {
   padding-top: 3%;
 }
 
-.time {
-  margin-top: 10%;
+.price {
+  background-color: #343a40;
+  color: #fff;
+  margin-bottom: 3%;
+  border-radius: 25px;
+  text-align: center;
 }
+
 
 .help-text {
   padding-top: 5%;
   padding-bottom: 5%;
+}
+
+.custom-button {
+  background-color: #eeeeee;
+  border: 1px solid black;
+}
+
+.custom-button:hover {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.fa-map-marker-alt {
+  font-size: 2rem;
+  margin-right: 2%;
+}
+
+.productCity {
+  padding-bottom: 3%;
+}
+
+.quick-bid-form {
+  display: inline-block;
+  margin-left: 2%;
 }
