@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Menas', 'Kyngos', 'Automobiliai/motociklai', 'Monetos', 'Kompiuteriai/žaidimai', 'Brangakmeniai', 'Mada', 'Dekoracijos', 'Papuošalai', 'Sportas', 'Žaislai', 'Ginklai']
+    enum: ['Menas', 'Knygos', 'Automobiliai/motociklai', 'Monetos', 'Kompiuteriai/žaidimai', 'Brangakmeniai', 'Mada', 'Dekoracijos', 'Papuošalai', 'Sportas', 'Žaislai', 'Ginklai']
   },
   city: {
     type: String,

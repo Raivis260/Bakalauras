@@ -139,6 +139,44 @@ exports.get_profile_edit = async(req, res) => {
   }
 }
 
+exports.post_profile_edit = async(req, res) => {
+  try {
+    let errors = [];
+
+    let user = await User.findOne({email: req.user.email});
+
+    if(!req.body.userEmail || !req.body.userAdress || !req.body.userZipcode) {
+      errors.push({msg: 'Prašome užpildyti visus laukus'});
+    }
+
+    let searchUser = await User.findOne({email: req.body.userEmail});
+    if (searchUser) {
+        errors.push({msg: 'Toks el. paštas jau egzistuoja.'});
+    }
+
+    if (errors.length > 0) {
+      res.render('profileEdit', {
+        errors,
+        user
+      });
+    } else {
+      // Validation Passed
+
+      let user = await User.updateOne({email: req.user.email},{
+        email: req.body.userEmail,
+        adress: req.body.userAdress,
+        zipcode: req.body.userZipcode
+      });
+
+      req.flash('success_msg', 'Profilis atnaujintas');
+      res.redirect('/');
+  }
+  }
+  catch(err) {
+    console.log(err.message);
+  }
+}
+
 exports.get_password_change = async(req, res) => {
   try {
     const user = await User.findOne({email:req.user.email});
@@ -182,6 +220,19 @@ exports.post_password_change = async(req, res) => {
       res.redirect('/users/edit');
   }
 }
+  catch(err) {
+    console.log(err.message);
+  }
+}
+// Laimėjimai
+
+exports.get_user_wins = async(req, res) => {
+  try {
+    const user = await User.findOne({email: req.user.email});
+    const products = await Product.find({productLeader: user._id});
+
+    res.render('wins', {products: products});
+  }
   catch(err) {
     console.log(err.message);
   }

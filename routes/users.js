@@ -37,5 +37,10 @@ router.get('/my-items', ensureAuthenticated, UsersController.user_get_my_product
 router.get('/edit', ensureAuthenticated, UsersController.get_profile_edit);
 router.get('/edit/pswChange', ensureAuthenticated, UsersController.get_password_change);
 
+router.post('/edit', ensureAuthenticated, UsersController.post_profile_edit);
 router.post('/edit/pswChange', ensureAuthenticated, UsersController.post_password_change);
+
+// Laimėjimai
+
+router.get('/winList', ensureAuthenticated, UsersController.get_user_wins);
 module.exports = router;

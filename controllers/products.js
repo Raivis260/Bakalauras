@@ -19,13 +19,18 @@ exports.products_get = async (req, res) => {
   try {
 
     const product = await Product.findById(req.params.id)
-
-    let comments = product.comments;
-    res.render('product', {
-      product: product
-    });
-
-  } catch (err) {
+    if(!req.user) {
+      let user = {
+        isAdmin: false
+      };
+        res.render('product', {user: user, product: product});
+    }
+    else {
+      let user = await User.findOne({email: req.user.email});
+      res.render('product', {user: user, product: product});
+    }
+  }
+    catch (err) {
     console.log(err.message);
   }
 };
@@ -34,12 +39,13 @@ exports.products_post_price = async (req, res) => {
   try {
     let product = await Product.findById(req.params.id);
     let price = req.body.priceInput;
-
+    let user = await User.findOne({email: req.user.email});
     if (price <= product.price || price >= 9999999.99) {
       req.flash('error_msg', 'Prašome įvesti didesnę kainą nei dabartinė.');
       await res.redirect(`/products/${product._id}`);
     } else {
       product.price = price;
+      product.productLeader = user;
       await product.save();
       req.flash('success_msg', 'Jūsų kaina sėkmingai pasiūlyta! Jūs esate aukciono lyderis!');
       await res.redirect(`/products/${product._id}`);
@@ -53,9 +59,11 @@ exports.products_post_price = async (req, res) => {
 //TODO
 exports.products_post_quick_bid_first = async (req, res) => {
   try {
+    let user = await User.findOne({email: req.user.email});
     let product = await Product.findOne({_id: req.params.id});
     await Product.updateOne({_id: req.params.id}, {$set: {
-      price: req.body.Btn1Price
+      price: req.body.Btn1Price,
+      productLeader: user
     }});
     req.flash('success_msg', 'Jūsų kaina sėkmingai pasiūlyta! Jūs esate aukciono lyderis!');
     await res.redirect(`/products/${product._id}`);
@@ -67,9 +75,11 @@ exports.products_post_quick_bid_first = async (req, res) => {
 }
 exports.products_post_quick_bid_second = async (req, res) => {
   try {
+    let user = await User.findOne({email: req.user.email});
     let product = await Product.findOne({_id: req.params.id});
     await Product.updateOne({_id: req.params.id}, {$set: {
-      price: req.body.Btn2Price
+      price: req.body.Btn2Price,
+      productLeader: user
     }});
     req.flash('success_msg', 'Jūsų kaina sėkmingai pasiūlyta! Jūs esate aukciono lyderis!');
     await res.redirect(`/products/${product._id}`);
@@ -81,9 +91,11 @@ exports.products_post_quick_bid_second = async (req, res) => {
 }
 exports.products_post_quick_bid_third = async (req, res) => {
   try {
+    let user = await User.findOne({email: req.user.email});
     let product = await Product.findOne({_id: req.params.id});
     await Product.updateOne({_id: req.params.id}, {$set: {
-      price: req.body.Btn3Price
+      price: req.body.Btn3Price,
+      productLeader: user
     }});
     req.flash('success_msg', 'Jūsų kaina sėkmingai pasiūlyta! Jūs esate aukciono lyderis!');
     await res.redirect(`/products/${product._id}`);
@@ -140,25 +152,33 @@ exports.products_post_comment = async (req, res) => {
       email: req.user.email
     });
     let product = await Product.findById(req.params.id);
+    if(req.body.commentText == "") {
+      res.render('product', {
+        user: user,
+        product: product
+      });
+    }
+    else {
+      let comment = new Comment({
+        message: req.body.commentText,
+        user: user
+      });
 
-    let comment = new Comment({
-      message: req.body.commentText,
-      user: user
-    });
+      product.comments.push(comment);
 
-    product.comments.push(comment);
-
-    await product.save();
-    res.render('product', {
-      product: product
-    });
-  } catch (err) {
-    res.redirect('/products/:id')
-    console.log(err);
-    req.flash('error_msg', 'Kažkas ne taip.')
+      await product.save();
+      res.render('product', {
+        user: user,
+        product: product
+      });
+    }
   }
+    catch (err) {
+      res.redirect('/products/:id')
+      console.log(err);
+      req.flash('error_msg', 'Kažkas ne taip.')
+    }
 }
-
 
 
 // To add product

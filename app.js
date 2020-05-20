@@ -27,7 +27,7 @@ if(!config.get("jwtPrivateKey"))
 // DB Config
 const db = require('./config/database').database;
 mongoose.set("useCreateIndex", true);
-
+mongoose.set('useFindAndModify', false);
 // Connect to DB
 mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log('Connected to MongoDB...'))

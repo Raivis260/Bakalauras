@@ -34,6 +34,7 @@
                 <a href="/products/add/add-product" class="dropdown-item">Pridėti produktą</a>
                 <a href="/users/my-items" class="dropdown-item">Mano produktai</a>
                 <a href="/users/edit" class="dropdown-item">Redaguoti profilį</a>
+                <a href="/users/winList" class="dropdown-item">Laimėjimai</a>
               </div>
             </li>
             <% } else { %>
@@ -56,14 +57,12 @@
         <h1>Siūlyk! Laikas tiksi!</h1>
       </div>
     </div>
-    <div class="container">
-      <%- include ("./partials/messages") -%>
-    </div>
   </section>
 
   <section id="items" style="word-wrap: break-word;">
     <div class="container-fluid">
       <div class="container">
+        <%- include ("./partials/messages") -%>
         <div id="getting-started"></div>
         <div class="mb-3">
           <div class="card mt-3">
@@ -106,7 +105,7 @@
                 <label class="input-group-text btn-dark " for="inputGroupSelect02">Būklė</label>
               </div>
               <select class="custom-select" id="conditionSelect" onChange="location = this.value;">
-                <option selected>Visi</option>
+                <option value='/'>Visi</option>
                 <% for(let i=0; i<conditions.length; i++) { %>
                 <option value='/?condition=<%=conditions[i].name%>'> <%= conditions[i].name %> </option>
                 <% } %>
@@ -119,7 +118,7 @@
                 <label class="input-group-text btn-dark " for="inputGroupSelect02">Kategorija</label>
               </div>
               <select class="custom-select" id="typeSelect" onChange="location = this.value;">
-                <option selected>Visos</option>
+                <option value='/'>Visos</option>
                 <% for(let i=0; i<categories.length; i++) { %>
                 <option value='/?category=<%=categories[i].name%>'> <%= categories[i].name %> </option>
                 <% } %>
@@ -145,10 +144,13 @@
             </div>
             <h4 class="text-center"><%=products[i].name %></h4>
             <h5><%=products[i].price %> €</h5>
-            <p> <%=products[i].timeLeft%> </p>
             <p> <%=products[i].city %> </p>
             <a href="/products/<%=products[i]._id %>" class="btn btn-lg btn-block btn-outline-dark">Atidaryti</a>
-
+             <% if(user.isAdmin) { %>
+              <form class="" action="/delete/<%=products[i]._id %>" method="POST">
+                <button class="btn btn-lg btn-block btn-outline-danger" type="submit" name="removeButton">Ištrinti</button>
+              </form>
+            <% }; %>
           </div>
           <%  }; %>
         </div>
@@ -160,7 +162,6 @@
 
 
   <%- include ("./partials/footer") -%>
-
 </body>
 
 </html>
