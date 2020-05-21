@@ -35,10 +35,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     maxlength: 299
   },
-  favourite: {
-    type: Boolean,
-    default: false
-  },
   startTime: {
     type: Date,
     default: Date.now,
@@ -66,6 +62,10 @@ const productSchema = new mongoose.Schema({
   productLeader: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  status: {
+    type: Boolean,
+    default: true
   }
 });
 

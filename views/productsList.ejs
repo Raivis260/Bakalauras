@@ -16,21 +16,18 @@
   <div class="container">
     <h1>Mėgstami produktai</h1>
     <div class="row">
+      <% if (user.favouriteList.length === 0) { %>
+        <h4 class="m-5">Mėgstamų produktų nėra.</h4>
+      <%} %>
       <% for (let i=0; i<user.favouriteList.length; i++) { %>
       <div class="col-lg-3 col-md-4 m-3 product-grid">
         <div class="image">
           <a href="/products/<%=user.favouriteList[i]._id %>">
             <img src="../<%=user.favouriteList[i].image[0] %>" class="w-100">
-            <div class="overlay">
-              <div class="detail">
-                View details
-              </div>
-            </div>
           </a>
         </div>
         <h4 class="text-center"><%=user.favouriteList[i].name %></h4>
         <h5><%=user.favouriteList[i].price %> €</h5>
-        <p> <%=user.favouriteList[i].startTime%> </p>
         <p> <%=user.favouriteList[i].city %> </p>
         <a href="/products/<%=user.favouriteList[i]._id %>" class="btn btn-lg btn-block custom-button">Atidaryti</a>
         <form action="/users/my-list/<%=user.favouriteList[i]._id%>" method="post">

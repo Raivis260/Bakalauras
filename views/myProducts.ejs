@@ -16,6 +16,9 @@
   <div class="container">
     <h1>Mano produktai</h1>
     <div class="row">
+      <% if(userProducts.length ==0) { %>
+        <h4 class="m-5">Jūs nesate įkėlęs jokio produkto į aukcioną.</h4>
+      <%} %>
       <% for (let i=0; i<userProducts.length; i++) { %>
       <div class="col-lg-3 col-md-4 m-3 product-grid text-center">
         <div class="image">
@@ -30,7 +33,6 @@
         </div>
         <h4 ><%=userProducts[i].name %></h4>
         <h5><%=userProducts[i].price %> €</h5>
-        <p> <%=userProducts[i].startTime%> </p>
         <p> <%=userProducts[i].city %> </p>
         <a href="/products/<%=userProducts[i]._id %>" class="btn btn-lg btn-block custom-button">Atidaryti</a>
         <a class="btn btn-warning btn-block mt-2" name="editButton" href="/products/edit/<%=userProducts[i]._id%>">Redaguoti</a>

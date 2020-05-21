@@ -21,7 +21,7 @@ const fileFilter = (req, file, callback) => {
     callback(null, true);
   }
   else {
-    callback(new Error('Wrong image format.'), false);
+    callback(new Error('Blogas nuotraukos formatas'), false);
   }
 };
 

@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 10
   },
+  // TODO NEED TO FIX
   favouriteList: {
     type: Array,
     default: []

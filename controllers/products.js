@@ -151,6 +151,7 @@ exports.products_post_comment = async (req, res) => {
     const user = await User.findOne({
       email: req.user.email
     });
+
     let product = await Product.findById(req.params.id);
     if(req.body.commentText == "") {
       res.render('product', {
@@ -260,15 +261,14 @@ exports.post_product_edit = async(req, res) => {
       description: req.body.productDescription,
       price: req.body.inputProductPrice
     }});
+    await req.flash('success_msg', 'Produktas sėkmingai redaguotas.');
+    await res.redirect('/users/my-items');
   }
 
   catch(err) {
     console.log(err.message);
   }
 
-
-  req.flash('success_msg', 'Produktas sėkmingai redaguotas.');
-  res.redirect('/users/my-items');
 }
 
 exports.delete_from_my_items = async(req, res) => {

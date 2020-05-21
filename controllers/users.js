@@ -63,7 +63,6 @@ exports.user_register = async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(user.password, salt);
       await user.save();
-      req.flash('success_msg', 'Jūs sėkmingai prisiregistravote ir galite prisijungti!');
       res.redirect('/users/login');
     }
   }
@@ -81,7 +80,6 @@ exports.user_login = (req, res, next) => {
 // User Logout
 exports.user_logout = (req,res) => {
   req.logout();
-  req.flash('success_msg', 'Jūs sėkmingai atsijungėte.');
   res.redirect('/users/login');
 };
 
@@ -150,7 +148,7 @@ exports.post_profile_edit = async(req, res) => {
     }
 
     let searchUser = await User.findOne({email: req.body.userEmail});
-    if (searchUser) {
+    if (searchUser && req.body.userEmail !== req.user.email) {
         errors.push({msg: 'Toks el. paštas jau egzistuoja.'});
     }
 
