@@ -108,7 +108,7 @@
               <select class="custom-select" id="conditionSelect" onChange="location = this.value;">
                 <option value='/'>Visi</option>
                 <% for(let i=0; i<conditions.length; i++) { %>
-                <option value='/?condition=<%=conditions[i].name%>'> <%= conditions[i].name %> </option>
+                <option value='/?condition=<%=conditions[i]._id%>'> <%= conditions[i].name %> </option>
                 <% } %>
               </select>
             </div>

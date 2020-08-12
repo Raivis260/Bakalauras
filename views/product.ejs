@@ -128,9 +128,19 @@
             <p><%=product.comments[i].message %></p>
           </div>
         </div>
-        <% } %>
       </div>
     </form>
+        <% if(user.isAdmin) { %>
+          <div class="container">
+            <form action="/products/<%=product._id%>/<%=product.comments[i]._id%>" method="post">
+              <button class="btn btn-lg btn-block btn-outline-danger" type="submit" name="removeButton">Ištrinti</button>
+            </form>
+         <% }; %>
+          </div>
+
+        <% } %>
+
+
   </section>
   </div>
   </div>

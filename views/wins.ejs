@@ -30,6 +30,9 @@
         <h5><%=products[i].price %> €</h5>
         <p> <%=products[i].city %> </p>
         <a href="/products/<%=products[i]._id %>" class="btn btn-lg btn-block custom-button">Atidaryti</a>
+        <% if(products[i].status === false) { %>
+          <button class="btn btn-lg btn-block btn-success" type="button" name="payButton">Mokėti</button>
+        <% } %>
       </div>
       <%  }; %>
   </div>

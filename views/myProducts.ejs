@@ -20,7 +20,7 @@
         <h4 class="m-5">Jūs nesate įkėlęs jokio produkto į aukcioną.</h4>
       <%} %>
       <% for (let i=0; i<userProducts.length; i++) { %>
-      <div class="col-lg-3 col-md-4 m-3 product-grid text-center">
+      <div class="col-lg-3 col-md-4 col-sm-12 mb-2 product-grid text-center">
         <div class="image">
           <a href="/products/<%=userProducts[i]._id %>">
             <img src="../<%=userProducts[i].image[0] %>" class="w-100">

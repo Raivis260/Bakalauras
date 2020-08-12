@@ -13,7 +13,7 @@ exports.get_cities = async(req, res) => {
   cities = await City
     .find({})
     .sort({city: 1})
-    .select({city: 1, _id: 0});
+    .select({city: 1, _id: 1});
 
   return cities;
 }
@@ -23,7 +23,7 @@ exports.get_categories = async(req, res) => {
   let categories = await Category
     .find({})
     .sort({name: 1})
-    .select({name: 1, _id: 0});
+    .select({name: 1, _id: 1});
 
   return categories;
 }
@@ -33,7 +33,7 @@ exports.get_condition = async(req, res) => {
   let conditions = await Condition
     .find({})
     .sort({name: 1})
-    .select({_id: 0});
+    .select({name:1, _id: 1});
 
   return conditions;
 

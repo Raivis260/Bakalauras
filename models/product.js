@@ -26,23 +26,12 @@ const productSchema = new mongoose.Schema({
     required: true
   },
   condition: {
-    type: String,
-    enum: ['Nauja', 'Naudota', 'Pažeista'],
-    default: 'Naudota',
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Condition'
   },
   description: {
     type: String,
     maxlength: 299
-  },
-  startTime: {
-    type: Date,
-    default: Date.now,
-    required: true
-  },
-  endTime: {
-    type: Date,
-    required: true
   },
   image: {
     type: Array,

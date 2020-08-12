@@ -23,13 +23,11 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
     maxlength: 1024
   },
-  // TODO: Needs validation
   zipcode: {
     type: String,
     minlength: 1,
     maxlength: 10
   },
-  // TODO NEED TO FIX
   favouriteList: {
     type: Array,
     default: []

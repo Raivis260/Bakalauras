@@ -7,6 +7,7 @@ const multer = require('multer');
 const {
   User
 } = require('../models/user');
+const {Condition} = require('../models/filters/condition');
 const {
   Comment
 } = require('../models/comment');
@@ -194,57 +195,67 @@ exports.products_get_add_form = async (req, res) => {
 
 exports.products_post_product = async (req, res, next) => {
 
-  let width = 400;
-  let height = 300;
+    try {
+      let width = 400;
+      let height = 300;
 
-  let images = [];
+      let images = [];
 
-  for(let i=0; i< req.files.length; i++) {
+      for(let i=0; i< req.files.length; i++) {
 
-     sharp(req.files[i].path)
-       .resize(width, height)
-       .png()
-       .toFile('uploads/changed_' + req.files[i].originalname,  function(err) {
-         if(!err) {
-           console.log('SHARP worked!');
-           console.log(`uploads/changed_${req.files[i].originalname}`);
-         }
-         else {
-           console.log(err);
-         }
-       })
-    await images.push(`uploads/changed_${req.files[i].originalname}`);
-  }
+         sharp(req.files[i].path)
+           .resize(width, height)
+           .png()
+           .toFile('uploads/changed_' + req.files[i].originalname,  function(err) {
+             if(!err) {
+               console.log('SHARP worked!');
+               console.log(`uploads/changed_${req.files[i].originalname}`);
+             }
+             else {
+               console.log(err);
+             }
+           })
+        await images.push(`uploads/changed_${req.files[i].originalname}`);
+      }
 
-  const user = await User.findOne({email: req.user.email});
+      const user = await User.findOne({email: req.user.email});
+      const condition = await Condition.findOne({name: req.body.conditionSelect});
 
-  const product = new Product({
-    name: req.body.inputProductName,
-    city: req.body.citySelect,
-    category: req.body.categorySelect,
-    condition: req.body.conditionSelect,
-    description: req.body.productDescription,
-    price: req.body.inputProductPrice,
-    image: images,
-    endTime: '2020-05-20',
-    timeLeft: '2020-06-20',
-    user: user
-  });
+      const product = new Product({
+        name: req.body.inputProductName,
+        city: req.body.citySelect,
+        category: req.body.categorySelect,
+        condition: condition,
+        description: req.body.productDescription,
+        price: req.body.inputProductPrice,
+        image: images,
+        user: user
+      });
 
 
-  await product.save();
-  req.flash('success_msg', 'Produktas pridėtas prie aktyvių aukcionų!');
-  res.redirect('/');
+      await product.save();
+      req.flash('success_msg', 'Produktas pridėtas prie aktyvių aukcionų!');
+      res.redirect('/');
+    }
+
+    catch(err) {
+      console.log(err.message);
+      req.flash('error_msg', 'Prašome užpildyti visus laukus teisingai');
+      res.redirect('/products/add/add-product');
+    }
+
 
 }
 
 exports.get_product_edit = async(req, res) => {
 
   const product = await Product.findOne({_id: req.params.id});
+  const productCondition = await Condition.findOne({_id: product.condition});
+
   let cities = await FilterController.get_cities();
   let categories = await FilterController.get_categories();
   let conditions = await FilterController.get_condition();
-  res.render('productEdit', {product: product, cities: cities, categories: categories, conditions: conditions});
+  res.render('productEdit', {product: product, cities: cities, categories: categories, conditions: conditions, productCondition: productCondition});
 }
 
 exports.post_product_edit = async(req, res) => {
@@ -252,12 +263,13 @@ exports.post_product_edit = async(req, res) => {
   try {
 
     let {name, city, category, condition, description, price} = req.body;
+    condition = await Condition.findOne({name: req.body.conditionSelect});
 
     const product = await Product.updateOne({_id: req.params.id}, {$set: {
       name: req.body.inputProductName,
       city: req.body.citySelect,
       category: req.body.categorySelect,
-      condition: req.body.conditionSelect,
+      condition: condition,
       description: req.body.productDescription,
       price: req.body.inputProductPrice
     }});
@@ -280,6 +292,32 @@ exports.delete_from_my_items = async(req, res) => {
   catch(err) {
     console.log(err.message);
   }
-  req.flash('success_msg', 'Product successfully deleted from list.');
+  req.flash('success_msg', 'Produktas sėkmingai ištrintas iš sąrašo.');
   res.redirect('/users/my-items');
+}
+
+exports.delete_product_comment = async(req, res) => {
+
+  try {
+
+    const product = await Product.findOne({_id: req.params.id});
+
+    const commentId = req.params.cId;
+
+    await product.updateOne({
+      $pull: {
+        comments: {
+          _id: commentId
+      }
+    }
+    });
+
+    await product.save();
+
+    req.flash('success_msg', 'Komentaras pašalintas.');
+    res.redirect(`/products/${product._id}`);
+  }
+  catch(err) {
+    console.log(err.message);
+  }
 }

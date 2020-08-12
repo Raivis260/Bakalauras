@@ -10,22 +10,21 @@ exports.get_home_products_grid = async (req, res) => {
 
     try {
       let queryParameter = req.query;
-      // let products = await getProducts(queryParameter);
-      let products = await getProductStatusTrue();
+      let products = await getProductStatusTrue(queryParameter);
       let cities = await FilterController.get_cities();
       let categories = await FilterController.get_categories();
       let conditions = await FilterController.get_condition();
 
       let now = new Date().getTime();
-      let deadline = new Date("2020-05-22 21:22:00").getTime();
+      let deadline = new Date("2020-10-20 8:59:30").getTime();
 
       var t = deadline - now;
-      console.log(t);
-       if (t > 0 && t < 1000) {
+
+       if (t > 0 && t < 1000 || t < 0) {
          products = await Product.updateMany({status: true}, {$set: {status: false}});
        }
        else {
-         products = await getProductStatusTrue();
+        products = await getProductStatusTrue(queryParameter);
        }
 
       if(!req.user) {
@@ -58,9 +57,10 @@ exports.admin_product_remove = async(req, res) => {
   }
 }
 
-async function getProductStatusTrue() {
+async function getProductStatusTrue(query) {
   let products;
-  products = await Product.find({status:true});
+  query.status = true;
+  products = await Product.find(query);
   return products;
 }
 

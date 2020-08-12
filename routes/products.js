@@ -39,7 +39,7 @@ const ProductsController = require('../controllers/products');
 
 router.get('/:id', ProductsController.products_get);
 
-// Products comment and price
+// Products comment and price post
 router.post('/:id', ensureAuthenticated, ProductsController.products_post_comment);
 router.post('/:id/bid', ensureAuthenticated, ProductsController.products_post_price);
 //Quick Bid
@@ -58,5 +58,8 @@ router.get('/edit/:id', ensureAuthenticated, ProductsController.get_product_edit
 router.post('/edit/:id', ensureAuthenticated, ProductsController.post_product_edit);
 
 router.post('/my-items/:id', ensureAuthenticated, ProductsController.delete_from_my_items);
+
+router.post('/:id/:cId', ensureAuthenticated, ProductsController.delete_product_comment);
+
 
 module.exports = router;

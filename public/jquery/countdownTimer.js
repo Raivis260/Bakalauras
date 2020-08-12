@@ -1,10 +1,9 @@
-var deadline = new Date("2020-05-22 21:22:00").getTime();
+var deadline = new Date("2020-10-20 8:59:30").getTime();
 
 var x = setInterval(function() {
 
   var now = new Date().getTime();
   var t = deadline - now;
-console.log(t);
 
   var days = Math.floor(t / (1000 * 60 * 60 * 24));
   var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
